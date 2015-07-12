@@ -1,4 +1,4 @@
-package ain.tolva.alerter;
+package ain.tolva.nut;
 
 /**
  * This class builds and launches the App.
@@ -16,8 +16,7 @@ public class Initialize {
 	 * close program gracefully
 	 */
 	
-	private static Alerter prog;
-	private static ErrorLog err;
+	private static Nut prog;
 	
 	public static void main(String[] args) {
 		try {
@@ -38,7 +37,8 @@ public class Initialize {
 	 */
 
 	private static void buildNotificationTray() throws NoTrayAccessException {
-		prog = new Alerter(err);
+		private static ErrorLog err;
+		prog = new Nut(err);
 	}
 
 }

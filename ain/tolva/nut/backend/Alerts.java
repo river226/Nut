@@ -1,4 +1,4 @@
-package ain.tolva.alerter.backend;
+package ain.tolva.nut.backend;
 
 import javax.swing.JOptionPane;
 

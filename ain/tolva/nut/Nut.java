@@ -1,9 +1,6 @@
-package ain.tolva.alerter;
+package ain.tolva.nut;
 
 /**
- * This is the main class, builds out the app, and launces the GUI as well
- * as all other components and classes that are necessary.
- * 
  * @author river226
  */
 
@@ -26,11 +23,11 @@ import javax.swing.*;
 import javax.print.DocFlavor.URL;
 import javax.swing.ImageIcon;
 
-import ain.tolva.alerter.backend.*;
-import ain.tolva.alerter.exceptions.*;
+import ain.tolva.nut.backend.*;
+import ain.tolva.nut.exceptions.*;
 
 @SuppressWarnings("unused")
-public class Alerter extends Thread {
+public class Nut extends Thread {
 	
 	// TODO add Tray icon
 
@@ -48,7 +45,7 @@ public class Alerter extends Thread {
 	 * This Constructor manages exceptions for the program, and launches the program
 	 * @throws NoTrayAccessException
 	 */
-	public Alerter (ErrorLog l) throws NoTrayAccessException {
+	public Nut (ErrorLog l) throws NoTrayAccessException {
 		err = l;
 		
 		if(!test()) { // The System Tray is not supported
