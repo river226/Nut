@@ -24,6 +24,7 @@ public class Initialize {
 		try {
 			buildNotificationTray();
 			in = new Thread(prog);
+			in.run();
 		} catch (NoTrayAccessException e) {
 			err.log(e.toString());
 			// Let use know that there is no Tray Access.
