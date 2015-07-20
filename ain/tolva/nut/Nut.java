@@ -99,10 +99,10 @@ public class Nut implements Runnable {
 	}
 
 	private void addPlugins() {
-		AddPlugin p = AddPlugin.init();
+		AddPlugin p = AddPlugin.newAP();
 		
-		while(p.hasNext()) {
-			popup.add((MenuItem) p.next());
+		while(p.peek()) {
+			popup.add(p.pop());
 		}
 	}
 
