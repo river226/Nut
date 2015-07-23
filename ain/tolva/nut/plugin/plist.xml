@@ -1,1 +1,11 @@
-<! -- This is filler for saving plugin in a XML format. -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE roles SYSTEM "plug.dtd">
+<plugin>
+  <name>Test</name>
+  <blurb>
+    A Sample XML entry for this Application
+  </blurb>
+  <location>
+    /sample/file/path.java
+  </location>
+</plugin>
