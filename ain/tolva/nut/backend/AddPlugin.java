@@ -4,6 +4,8 @@ import java.awt.MenuItem;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.LinkedList;
 import java.util.Stack;
 import javax.xml.parsers.*;
@@ -77,7 +79,6 @@ public class AddPlugin{
 					| IOException 
 					| ParserConfigurationException e) {
 				// Log
-				System.out.print(e.getMessage());
 			} finally {
 				hasRun = true;	
 			}
@@ -85,7 +86,15 @@ public class AddPlugin{
 	}
 	
 	private NutPlugin addJar(String loc) {
-		// TODO Auto-generated method stub
+		try {
+			File f = new File(loc);
+			ClassLoader cl = URLClassLoader.newInstance(new URL[] { f.toURL() });
+			NutPlugin plugin = (NutPlugin) cl.loadClass("plugins.authorized.Authorized").newInstance();
+			return plugin;
+		} catch (Exception e){
+			// log
+		}
+		
 		return null;
 	}
 
