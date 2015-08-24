@@ -25,11 +25,14 @@ import ain.tolva.nut.plugin.NutPlugin;
 public class AddPlugin{
 
 	private Stack<NutPlugin> tooAddPlugins;
+	private Stack<String> addedLocations;
 	private LinkedList<NutPlugin> plugins;
 	private boolean hasRun;
+	private Document dom;
 
 	private AddPlugin() {
 		tooAddPlugins = new Stack<NutPlugin>();
+		addedLocations = new Stack<String>();
 		plugins = new LinkedList<NutPlugin>();
 		hasRun = false;
 	}
@@ -58,7 +61,6 @@ public class AddPlugin{
 		if(!hasRun) {// if this has run once there is nothing to do
 
 			try {
-				Document dom;
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 				DocumentBuilder db = dbf.newDocumentBuilder();
 				dom = db.parse(new File("plist.xml"));
@@ -71,6 +73,7 @@ public class AddPlugin{
 						for(int i = 0; i < nl.getLength(); i++) {
 							String loc = nl.item(i).getFirstChild().getNodeValue();
 							tooAddPlugins.push(addJar(loc));
+							addedLocations.push(loc);
 						}
 					}
 				}
@@ -88,7 +91,7 @@ public class AddPlugin{
 	private NutPlugin addJar(String loc) {
 		try {
 			File f = new File(loc);
-			ClassLoader cl = URLClassLoader.newInstance(new URL[] { f.toURL() });
+			ClassLoader cl = URLClassLoader.newInstance(new URL[] { f.toURL() }); // fix deprecation issue
 			NutPlugin plugin = (NutPlugin) cl.loadClass("plugins.authorized.Authorized").newInstance();
 			return plugin;
 		} catch (Exception e){
@@ -99,7 +102,6 @@ public class AddPlugin{
 	}
 
 	public void saveToXML(String xml) {
-	    Document dom;
 	    Element e = null;
 
 	    // instance of a DocumentBuilderFactory
@@ -111,12 +113,12 @@ public class AddPlugin{
 	        dom = db.newDocument();
 
 	        // create the root element
-	        Element rootEle = dom.createElement("roles");
+	        Element rootEle = dom.createElement("plugin");
 
-	        // create data elements and place them under root
-	        //e = dom.createElement("role1");
-	        //e.appendChild(dom.createTextNode(role1));
-	        //rootEle.appendChild(e);
+	        //create data elements and place them under root
+	        e = dom.createElement("location");
+	        e.appendChild(dom.createTextNode(addedLocations.pop()));
+	        rootEle.appendChild(e);
 
 	        dom.appendChild(rootEle);
 
@@ -125,20 +127,18 @@ public class AddPlugin{
 	            tr.setOutputProperty(OutputKeys.INDENT, "yes");
 	            tr.setOutputProperty(OutputKeys.METHOD, "xml");
 	            tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-	            tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "roles.dtd");
+	            tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "plug.dtd");
 	            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
 	            // send DOM to file
 	            tr.transform(new DOMSource(dom), 
 	                                 new StreamResult(new FileOutputStream(xml)));
 
-	        } catch (TransformerException te) {
-	            System.out.println(te.getMessage());
-	        } catch (IOException ioe) {
-	            System.out.println(ioe.getMessage());
+	        } catch (IOException | TransformerException ex) {
+	            // Log
 	        }
 	    } catch (ParserConfigurationException pce) {
-	        System.out.println("UsersXML: Error trying to instantiate DocumentBuilder " + pce);
+	        // Log
 	    }
 	}
 
