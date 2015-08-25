@@ -41,8 +41,8 @@ public class Nut implements Runnable {
 	 * This Constructor manages exceptions for the program, and launches the program
 	 * @throws NoTrayAccessException
 	 */
-	public Nut(ErrorLog l) throws NoTrayAccessException {
-		err = l;
+	public Nut() throws NoTrayAccessException {
+		err = ErrorLog.getInstance();
 
 		try {
 				trayIcon = new TrayIcon(createImage("media/alert.gif", "tray icon"));

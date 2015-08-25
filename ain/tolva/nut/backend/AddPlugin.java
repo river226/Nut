@@ -29,11 +29,13 @@ public class AddPlugin{
 	private LinkedList<NutPlugin> plugins;
 	private boolean hasRun;
 	private Document dom;
+	private ErrorLog log;
 
 	private AddPlugin() {
 		tooAddPlugins = new Stack<NutPlugin>();
 		addedLocations = new Stack<String>();
 		plugins = new LinkedList<NutPlugin>();
+		log = ErrorLog.getInstance();
 		hasRun = false;
 	}
 

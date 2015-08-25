@@ -41,8 +41,8 @@ public class Initialize {
 	 */
 
 	private static void buildNotificationTray() throws NoTrayAccessException {
-		err = new ErrorLog();
-		prog = new Nut(err);
+		err = ErrorLog.getInstance();
+		prog = new Nut();
 	}
 
 }
