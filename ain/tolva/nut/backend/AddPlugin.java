@@ -24,18 +24,19 @@ import ain.tolva.nut.plugin.NutPlugin;
  */
 public class AddPlugin{
 
+	private static final String This_Class = "AddPlugin.java";
 	private Stack<NutPlugin> tooAddPlugins;
 	private Stack<String> addedLocations;
 	private LinkedList<NutPlugin> plugins;
 	private boolean hasRun;
 	private Document dom;
-	private ErrorLog log;
+	private ErrorLog erlog;
 
 	private AddPlugin() {
 		tooAddPlugins = new Stack<NutPlugin>();
 		addedLocations = new Stack<String>();
 		plugins = new LinkedList<NutPlugin>();
-		log = ErrorLog.getInstance();
+		erlog = ErrorLog.getInstance();
 		hasRun = false;
 	}
 
@@ -83,7 +84,7 @@ public class AddPlugin{
 			} catch (SAXException 
 					| IOException 
 					| ParserConfigurationException e) {
-				// Log
+				erlog.log(This_Class, e);
 			} finally {
 				hasRun = true;	
 			}
@@ -97,7 +98,7 @@ public class AddPlugin{
 			NutPlugin plugin = (NutPlugin) cl.loadClass("plugins.authorized.Authorized").newInstance();
 			return plugin;
 		} catch (Exception e){
-			// log
+			erlog.log(This_Class, e);
 		}
 		
 		return null;
@@ -137,10 +138,10 @@ public class AddPlugin{
 	                                 new StreamResult(new FileOutputStream(xml)));
 
 	        } catch (IOException | TransformerException ex) {
-	            // Log
+	            erlog.log(This_Class, ex);
 	        }
 	    } catch (ParserConfigurationException pce) {
-	        // Log
+	        erlog.log(This_Class, pce);
 	    }
 	}
 

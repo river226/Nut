@@ -15,8 +15,9 @@ public class Initialize {
 	 * Main function, uses methods to build, catches exceptions to
 	 * close program gracefully
 	 */
-	private static ErrorLog err;
+	private static ErrorLog erlog;
 	private static Nut prog;
+	private static final String This_Class = "Initialize.java";
 
 	public static void main(String[] args) {
 		Thread in = null;
@@ -26,11 +27,11 @@ public class Initialize {
 			in = new Thread(prog);
 			in.run();
 		} catch (NoTrayAccessException e) {
-			err.log(e.toString());
+			erlog.log(This_Class, e.toString());
 			// Let use know that there is no Tray Access.
 			System.exit(0);
 		} catch (Exception e) {
-			err.log(e.toString());
+			erlog.log(This_Class, e.toString());
 			if (in != null) in.interrupt();
 			System.exit(0);
 		}
@@ -41,7 +42,7 @@ public class Initialize {
 	 */
 
 	private static void buildNotificationTray() throws NoTrayAccessException {
-		err = ErrorLog.getInstance();
+		erlog = ErrorLog.getInstance();
 		prog = new Nut();
 	}
 

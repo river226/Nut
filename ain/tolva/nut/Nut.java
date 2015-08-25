@@ -27,9 +27,10 @@ import ain.tolva.nut.plugin.*;
 @SuppressWarnings("unused")
 public class Nut implements Runnable {
 
+	private static final String This_Class = "Nut.java";
 	// Mutable Variables
 	private Menu displayMenu = new Menu("Display");
-	private ErrorLog err;
+	private ErrorLog erlog;
 	private ArrayList<NutPlugin> plug;
 	private TrayIcon trayIcon;
 	// Final Global Variables
@@ -42,13 +43,13 @@ public class Nut implements Runnable {
 	 * @throws NoTrayAccessException
 	 */
 	public Nut() throws NoTrayAccessException {
-		err = ErrorLog.getInstance();
+		erlog = ErrorLog.getInstance();
 
 		try {
 				trayIcon = new TrayIcon(createImage("media/alert.gif", "tray icon"));
 		} catch (FileNotFoundException e) {
 			// TODO
-			err.log(e);
+			erlog.log(This_Class, e);
 		}
 
 		if(!SystemTray.isSupported()) { // The System Tray is not supported
@@ -130,7 +131,7 @@ public class Nut implements Runnable {
 		try {
 			launch();
 		} catch (AWTException | InterruptedException e) {
-			err.log(e);
+			erlog.log(This_Class, e);
 		}
 	}
 }
