@@ -44,16 +44,15 @@ public class Nut implements Runnable {
 	 */
 	public Nut() throws NoTrayAccessException {
 		erlog = ErrorLog.getInstance();
-
+		
+		if(!SystemTray.isSupported()) { // The System Tray is not supported
+			throw new NoTrayAccessException("No System Support");
+		}
+		
 		try {
 				trayIcon = new TrayIcon(createImage("media/alert.gif", "tray icon"));
 		} catch (FileNotFoundException e) {
-			// TODO
 			erlog.log(This_Class, e);
-		}
-
-		if(!SystemTray.isSupported()) { // The System Tray is not supported
-			throw new NoTrayAccessException("No System Support");
 		}
 	}
 
@@ -63,7 +62,6 @@ public class Nut implements Runnable {
 	 * @throws InterruptedException
 	 */
 	public void launch() throws AWTException, InterruptedException {
-		System.out.println("launch");
 
 		// Create a popup menu components
 		// Pull Menu items from plugins

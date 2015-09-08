@@ -2,9 +2,6 @@
 <!DOCTYPE roles SYSTEM "plug.dtd">
 <plugin>
   <location>
-    /sample/file/path.java
-  </location>
-  <location>
-    /sample/file/path.java2
+    ain/tolva/nut/plugin/test.jar
   </location>
 </plugin>

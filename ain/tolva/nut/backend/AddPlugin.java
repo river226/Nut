@@ -37,7 +37,7 @@ public class AddPlugin{
 		addedLocations = new Stack<String>();
 		plugins = new LinkedList<NutPlugin>();
 		erlog = ErrorLog.getInstance();
-		hasRun = false;
+		hasRun = readInPlugins();
 	}
 
 	public static AddPlugin newAP() {
@@ -59,7 +59,7 @@ public class AddPlugin{
 
 	// TODO implement reading and writing plugin data
 	// http://stackoverflow.com/questions/7373567/java-how-to-read-and-write-xml-files/7373596#7373596
-	public void readInPlugins() {
+	public boolean readInPlugins() {
 		// Throws added plugins on the TooAddPlugins Stack
 		if(!hasRun) {// if this has run once there is nothing to do
 
@@ -86,9 +86,10 @@ public class AddPlugin{
 					| ParserConfigurationException e) {
 				erlog.log(This_Class, e);
 			} finally {
-				hasRun = true;	
+				return true;	
 			}
 		}
+		return true;
 	}
 	
 	private NutPlugin addJar(String loc) {
