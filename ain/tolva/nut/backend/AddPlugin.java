@@ -22,44 +22,33 @@ import ain.tolva.nut.plugin.NutPlugin;
  * This class handles writing and importing plugins. 
  * It uses a stack metaphor to describe the plugin storage.
  */
-public class AddPlugin{
+public class AddPlugin {
 
-	private static final String This_Class = "AddPlugin.java";
-	private Stack<NutPlugin> tooAddPlugins;
-	private Stack<String> addedLocations;
-	private LinkedList<NutPlugin> plugins;
-	private boolean hasRun;
+	private static final String THIS_CLASS = "AddPlugin.java";
+	
+	private Stack<NutPlugin> tooAddPlugins = new Stack<NutPlugin>();
+	private Stack<String> addedLocations = new Stack<String>();
+	private LinkedList<NutPlugin> plugins = new LinkedList<NutPlugin>();
+	private ErrorLog erlog = ErrorLog.getInstance();
+	
+	private boolean hasRun = false;
 	private Document dom;
-	private ErrorLog erlog;
 
 	private AddPlugin() {
-		tooAddPlugins = new Stack<NutPlugin>();
-		addedLocations = new Stack<String>();
-		plugins = new LinkedList<NutPlugin>();
-		erlog = ErrorLog.getInstance();
-		hasRun = readInPlugins();
-	}
-
-	public static AddPlugin newAP() {
-		return buildAddPlugin.INSTANCE;
+		readInPlugins();
 	}
 
 	public MenuItem pop() {
-		if(!hasRun) readInPlugins();
-		if(this.empty()) return null;
-
+		if(empty()) return null;
 		plugins.add(tooAddPlugins.peek());
 		return tooAddPlugins.pop().getMenuItem();
 	}
 
 	public boolean empty() {
-		if(!hasRun) readInPlugins();
 		return tooAddPlugins.empty();
 	}
 
-	// TODO implement reading and writing plugin data
-	// http://stackoverflow.com/questions/7373567/java-how-to-read-and-write-xml-files/7373596#7373596
-	public boolean readInPlugins() {
+	public void readInPlugins() {
 		// Throws added plugins on the TooAddPlugins Stack
 		if(!hasRun) {// if this has run once there is nothing to do
 
@@ -84,22 +73,21 @@ public class AddPlugin{
 			} catch (SAXException 
 					| IOException 
 					| ParserConfigurationException e) {
-				erlog.log(This_Class, e);
+				erlog.log(THIS_CLASS, e);
 			} finally {
-				return true;	
+				hasRun = true;
 			}
 		}
-		return true;
 	}
 	
 	private NutPlugin addJar(String loc) {
 		try {
 			File f = new File(loc);
-			ClassLoader cl = URLClassLoader.newInstance(new URL[] { f.toURL() }); // fix deprecation issue
+			ClassLoader cl = URLClassLoader.newInstance(new URL[] { f.toURI().toURL() }); 
 			NutPlugin plugin = (NutPlugin) cl.loadClass("plugins.authorized.Authorized").newInstance();
 			return plugin;
 		} catch (Exception e){
-			erlog.log(This_Class, e);
+			erlog.log(THIS_CLASS, e);
 		}
 		
 		return null;
@@ -139,12 +127,14 @@ public class AddPlugin{
 	                                 new StreamResult(new FileOutputStream(xml)));
 
 	        } catch (IOException | TransformerException ex) {
-	            erlog.log(This_Class, ex);
+	            erlog.log(THIS_CLASS, ex);
 	        }
 	    } catch (ParserConfigurationException pce) {
-	        erlog.log(This_Class, pce);
+	        erlog.log(THIS_CLASS, pce);
 	    }
 	}
+	
+	public static AddPlugin getInstance() { return buildAddPlugin.INSTANCE; }
 
 	private static class buildAddPlugin { // Thread safe way to create singleton
 		private static final AddPlugin INSTANCE = new AddPlugin();	

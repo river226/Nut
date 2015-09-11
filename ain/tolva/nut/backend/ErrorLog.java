@@ -8,15 +8,11 @@ import java.util.Map;
 
 public class ErrorLog {
 	
-	Map<Integer, String> errors;
+	private Map<Integer, String> errors  = new Hashtable<Integer, String>();;
+	private final String ERROR_LOG_FILE = "error.log";
+	private final String FILE_FORMAT = "UTF-8";
 
-	public ErrorLog(){
-		errors = new Hashtable<Integer, String>();
-	}
-	
-	public static ErrorLog getInstance() {
-		return ErrorLogHolder.el;
-	}
+	private ErrorLog() {}
 
 	public void log(String c, String e) {
 		add(c + ": " + e);
@@ -33,17 +29,20 @@ public class ErrorLog {
 			errors.put(0, er);
 		
 		errors.put(k, er);
+		
+		// For Testing
+		System.out.println(er);
 	}
 	
 	public void produceLog() {
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter("error.log", "UTF-8");
+			writer = new PrintWriter(ERROR_LOG_FILE, FILE_FORMAT);
 			for(int i = 0; i < errors.size(); i++) {
 				writer.println(i + " --- /n" + errors.get(i));
 			}
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			// TODO: Handle Exception without bothering user
 		} finally {
 			if(writer != null)
 				writer.close();
@@ -51,7 +50,11 @@ public class ErrorLog {
 		
 	}
 	
-	private static class ErrorLogHolder {
+	public static ErrorLog getInstance() {
+		return ErrorLogHolder.el;
+	}
+	
+	private static class ErrorLogHolder { // Singleton Class
 		private static final ErrorLog el = new ErrorLog();
 	}
 
