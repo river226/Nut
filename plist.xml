@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE roles SYSTEM "plug.dtd">
 <plugin>
+  <!-- <pluginclass>
+  	TestPlugin.class
+  </pluginclass> -->
   <location>
-    ain/tolva/nut/plugin/test.jar
+    ain/tolva/nut/plugin/TestPlugin.jar
   </location>
 </plugin>

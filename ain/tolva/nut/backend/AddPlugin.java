@@ -49,7 +49,6 @@ public class AddPlugin {
 	}
 
 	public void readInPlugins() {
-		// Throws added plugins on the TooAddPlugins Stack
 		if(!hasRun) {// if this has run once there is nothing to do
 
 			try {
@@ -63,9 +62,12 @@ public class AddPlugin {
 						NodeList nl = ele.getElementsByTagName("location");
 						
 						for(int i = 0; i < nl.getLength(); i++) {
-							String loc = nl.item(i).getFirstChild().getNodeValue();
-							tooAddPlugins.push(addJar(loc));
-							addedLocations.push(loc);
+							String loc = nl.item(i).getFirstChild().getNodeValue().trim();
+							NutPlugin n = addJar(loc);
+							if (n != null) {
+								tooAddPlugins.push(n);
+								addedLocations.push(loc);
+							}
 						}
 					}
 				}
@@ -82,10 +84,11 @@ public class AddPlugin {
 	
 	private NutPlugin addJar(String loc) {
 		try {
-			File f = new File(loc);
+			String jar = loc.substring(loc.lastIndexOf('/') + 1);
+			File f = new File(loc.replace("/" + jar, ""));
 			ClassLoader cl = URLClassLoader.newInstance(new URL[] { f.toURI().toURL() }); 
-			NutPlugin plugin = (NutPlugin) cl.loadClass("plugins.authorized.Authorized").newInstance();
-			return plugin;
+			System.out.println(f.toURI().toURL());
+			return ((NutPlugin) cl.loadClass(f.toURI().toURL() + "TestPlugin.class").newInstance());
 		} catch (Exception e){
 			erlog.log(THIS_CLASS, e);
 		}
