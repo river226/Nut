@@ -105,9 +105,8 @@ public class Nut implements Runnable {
 		AddPlugin p = AddPlugin.getInstance();
 		Stack<MenuItem> plug = new Stack<>();
 		while(!p.empty()) {
-			System.out.println(p.pop());
 			MenuItem i = p.pop();
-			if(i != null)
+			if(i != null) 
 				plug.push(i);
 		}
 		return plug;

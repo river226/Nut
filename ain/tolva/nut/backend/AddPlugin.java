@@ -64,7 +64,7 @@ public class AddPlugin {
 						for(int i = 0; i < nl.getLength(); i++) {
 							String loc = nl.item(i).getFirstChild().getNodeValue().trim();
 							NutPlugin n = addJar(loc);
-							if (n != null) {
+							if (n != null) { // AddJar can return Null which can cause issues.
 								tooAddPlugins.push(n);
 								addedLocations.push(loc);
 							}
@@ -87,8 +87,8 @@ public class AddPlugin {
 			String jar = loc.substring(loc.lastIndexOf('/') + 1);
 			File f = new File(loc.replace("/" + jar, ""));
 			ClassLoader cl = URLClassLoader.newInstance(new URL[] { f.toURI().toURL() }); 
-			System.out.println(f.toURI().toURL());
-			return ((NutPlugin) cl.loadClass(f.toURI().toURL() + "TestPlugin.class").newInstance());
+			ClassLoader cl = new ClassLoader();
+			return ((NutPlugin) cl.loadClass("ain.tolva.nut.test.TestPlugin").newInstance());
 		} catch (Exception e){
 			erlog.log(THIS_CLASS, e);
 		}
