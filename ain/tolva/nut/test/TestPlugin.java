@@ -4,6 +4,7 @@ import java.awt.MenuItem;
 
 import ain.tolva.nut.plugin.NutPlugin;
 
+
 public class TestPlugin implements NutPlugin {
 
 	@Override

@@ -59,11 +59,14 @@ public class AddPlugin {
 				if (dom != null) {
 					Element ele = dom.getDocumentElement();
 					if (ele != null) {
-						NodeList nl = ele.getElementsByTagName("location");
+						NodeList nlCLA = ele.getElementsByTagName("pluginclass");
+						NodeList nlLOC = ele.getElementsByTagName("location");
 						
-						for(int i = 0; i < nl.getLength(); i++) {
-							String loc = nl.item(i).getFirstChild().getNodeValue().trim();
-							NutPlugin n = addJar(loc);
+						for(int i = 0; i < nlLOC.getLength() && i < nlCLA.getLength(); i++) {
+							String cl = nlCLA.item(i).getFirstChild().getNodeValue().trim(); // class
+							String loc = nlLOC.item(i).getFirstChild().getNodeValue().trim(); // location
+							System.out.println(cl + " " + loc);
+							NutPlugin n = addJar(loc, cl);
 							if (n != null) { // AddJar can return Null which can cause issues.
 								tooAddPlugins.push(n);
 								addedLocations.push(loc);
@@ -82,18 +85,19 @@ public class AddPlugin {
 		}
 	}
 	
-	private NutPlugin addJar(String loc) {
+	private NutPlugin addJar(String loc, String classLoc) {
+		NutPlugin n = null;
+		
 		try {
-			String jar = loc.substring(loc.lastIndexOf('/') + 1);
-			File f = new File(loc.replace("/" + jar, ""));
-			ClassLoader cl = URLClassLoader.newInstance(new URL[] { f.toURI().toURL() }); 
-			ClassLoader cl = new ClassLoader();
-			return ((NutPlugin) cl.loadClass("ain.tolva.nut.test.TestPlugin").newInstance());
-		} catch (Exception e){
+			File f = new File(loc);
+			URL[] urls = new URL[] { f.toURI().toURL() };
+			ClassLoader cl = URLClassLoader.newInstance(urls); 
+			n = ((NutPlugin) cl.loadClass(classLoc).newInstance());
+		} catch (NoClassDefFoundError | Exception e){
 			erlog.log(THIS_CLASS, e);
 		}
 		
-		return null;
+		return n;
 	}
 
 	public void saveToXML(String xml) {

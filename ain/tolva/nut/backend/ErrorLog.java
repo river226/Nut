@@ -22,6 +22,11 @@ public class ErrorLog {
 		add(c + ": " + e.toString());
 	}
 	
+	public void log(String c, Throwable e) {
+		add(c + ": " + e.toString());
+		
+	}
+	
 	private void add(String er) {
 		int k = errors.size();
 		
