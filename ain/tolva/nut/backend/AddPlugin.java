@@ -65,7 +65,6 @@ public class AddPlugin {
 						for(int i = 0; i < nlLOC.getLength() && i < nlCLA.getLength(); i++) {
 							String cl = nlCLA.item(i).getFirstChild().getNodeValue().trim(); // class
 							String loc = nlLOC.item(i).getFirstChild().getNodeValue().trim(); // location
-							System.out.println(cl + " " + loc);
 							NutPlugin n = addJar(loc, cl);
 							if (n != null) { // AddJar can return Null which can cause issues.
 								tooAddPlugins.push(n);
