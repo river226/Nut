@@ -1,6 +1,4 @@
 # Nut
+**Natural Utility Tool**
 
-Work Todo:
-- Implement Ant with Ivy (this is a small project, and should be managable)
-- Implement Tests (Junit, Mockito, Manual), Debug
-- Create a real plugin
+This application is designed to sit in the system tray, and run plugin utilities and tools to add small basic funtions.
