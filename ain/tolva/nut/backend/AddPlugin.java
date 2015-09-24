@@ -25,12 +25,10 @@ import ain.tolva.nut.plugin.NutPlugin;
 public class AddPlugin {
 
 	private static final String THIS_CLASS = "AddPlugin.java";
-	
-	private Stack<NutPlugin> tooAddPlugins = new Stack<NutPlugin>();
+	private Stack<NutPlugin> unimplementedPlugins = new Stack<NutPlugin>();
 	private Stack<String> addedLocations = new Stack<String>();
 	private LinkedList<NutPlugin> plugins = new LinkedList<NutPlugin>();
 	private ErrorLog erlog = ErrorLog.getInstance();
-	
 	private boolean hasRun = false;
 	private Document dom;
 
@@ -40,12 +38,12 @@ public class AddPlugin {
 
 	public MenuItem pop() {
 		if(empty()) return null;
-		plugins.add(tooAddPlugins.peek());
-		return tooAddPlugins.pop().getMenuItem();
+		plugins.add(unimplementedPlugins.peek());
+		return unimplementedPlugins.pop().getMenuItem();
 	}
 
 	public boolean empty() {
-		return tooAddPlugins.empty();
+		return unimplementedPlugins.empty();
 	}
 
 	public void readInPlugins() {
@@ -67,7 +65,7 @@ public class AddPlugin {
 							String loc = nlLOC.item(i).getFirstChild().getNodeValue().trim(); // location
 							NutPlugin n = addJar(loc, cl);
 							if (n != null) { // AddJar can return Null which can cause issues.
-								tooAddPlugins.push(n);
+								unimplementedPlugins.push(n);
 								addedLocations.push(loc);
 							}
 						}
@@ -145,4 +143,5 @@ public class AddPlugin {
 	private static class buildAddPlugin { // Thread safe way to create singleton
 		private static final AddPlugin INSTANCE = new AddPlugin();	
 	}
+	
 }
