@@ -3,7 +3,6 @@ package ain.tolva.nut.backend;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Stack;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -20,8 +19,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import ain.tolva.nut.plugin.NutPlugin;
 
 public class PluginFile {
 	private static final String DEFAULT_FILE = "plist.xml";
@@ -51,11 +48,13 @@ public class PluginFile {
 			if (ele != null) {
 				NodeList nlCLA = ele.getElementsByTagName("pluginclass");
 				NodeList nlLOC = ele.getElementsByTagName("location");
+				n = new Stack<NeoPlugin>();
 				
 				for(int i = 0; i < nlLOC.getLength() && i < nlCLA.getLength(); i++) {
 					String cl = nlCLA.item(i).getFirstChild().getNodeValue().trim(); // class
 					String loc = nlLOC.item(i).getFirstChild().getNodeValue().trim(); // location
-					n.push(new NeoPlugin(cl, loc));
+					if(cl != null && loc != null)
+						n.push(new NeoPlugin(cl, loc));
 				}
 			}
 		}
@@ -117,5 +116,4 @@ public class PluginFile {
 	    
 	    return written;
 	}
-	
 }
