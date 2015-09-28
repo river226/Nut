@@ -1,4 +1,4 @@
-package ain.tolva.nut.backend;
+package ain.tolva.nut.backend.plugins;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,6 +19,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import ain.tolva.nut.backend.exceptions.ErrorLog;
 
 public class PluginFile {
 	private static final String DEFAULT_FILE = "plist.xml";

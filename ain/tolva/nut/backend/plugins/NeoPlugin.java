@@ -1,9 +1,10 @@
-package ain.tolva.nut.backend;
+package ain.tolva.nut.backend.plugins;
 
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import ain.tolva.nut.backend.exceptions.ErrorLog;
 import ain.tolva.nut.plugin.NutPlugin;
 
 public class NeoPlugin {

@@ -1,4 +1,4 @@
-package ain.tolva.nut.exceptions;
+package ain.tolva.nut.backend.exceptions;
 
 public class NoTrayAccessException extends Exception {
 	

@@ -1,4 +1,4 @@
-package ain.tolva.nut.backend;
+package ain.tolva.nut.backend.plugins;
 
 import java.awt.MenuItem;
 import java.util.LinkedList;

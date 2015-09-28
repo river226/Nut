@@ -1,4 +1,4 @@
-package ain.tolva.nut.backend;
+package ain.tolva.nut.backend.exceptions;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

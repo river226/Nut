@@ -8,8 +8,8 @@ package ain.tolva.nut;
 
 import java.io.FileNotFoundException;
 
-import ain.tolva.nut.backend.ErrorLog;
-import ain.tolva.nut.exceptions.*;
+import ain.tolva.nut.backend.exceptions.ErrorLog;
+import ain.tolva.nut.backend.exceptions.NoTrayAccessException;
 
 public class Initialize {
 
