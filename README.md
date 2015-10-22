@@ -1,4 +1,6 @@
 # Nut
 **Natural Utility Tool**
 
-This application is designed to sit in the system tray, and run plugin utilities and tools to add small basic funtions.
+Nut is built to run in the system tray. It provides a menu of plugins/utilities that you can run with a right click and select. When finished it will come with a plugin store, and a simple way to find and install plugins.
+
+It is currently under active development and not ready for use.
