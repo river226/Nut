@@ -31,29 +31,29 @@ import ain.tolva.nut.plugin.*;
 public class Nut implements Runnable {
 
 	private static final String THIS_CLASS = "Nut.java";
-	
+
 	private PopupMenu popup = new PopupMenu();
 	private SystemTray tray = SystemTray.getSystemTray();
 	private Menu displayMenu = new Menu("Display");
 	private ErrorLog erlog;
 	private ArrayList<NutPlugin> plug;
 	private TrayIcon trayIcon;
-	
+
 
 	/**
 	 * @throws NoTrayAccessException, FileNotFoundException
 	 */
-	public Nut() 
+	public Nut()
 			throws NoTrayAccessException, FileNotFoundException {
 		erlog = ErrorLog.getInstance();
-		
+
 		if(!SystemTray.isSupported()) { // The System Tray is not supported
 			throw new NoTrayAccessException("No System Support");
 		}
-		
+
 		trayIcon = new TrayIcon(createImage("media/alert.gif", "tray icon"));
 	}
-	
+
 	/**
 	 * Launches a new Thread to run the program.
 	 */
@@ -77,19 +77,19 @@ public class Nut implements Runnable {
 		trayIcon.setPopupMenu(popup);
 		tray.add(trayIcon);
 	}
-	
+
 	private MenuItem buildAddPluginItem() {
 		MenuItem ap = new MenuItem("Add Plugin");
-		
+
 		ap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO
 			}
 		});
-		
+
 		return ap;
 	}
-	
+
 	private MenuItem buildExitItem() {
 		MenuItem e = new MenuItem("Exit");
 
@@ -99,7 +99,7 @@ public class Nut implements Runnable {
 				System.exit(0);
 			}
 		});
-		
+
 		return e;
 	}
 
@@ -108,12 +108,12 @@ public class Nut implements Runnable {
 		Stack<MenuItem> plug = new Stack<>();
 		while(!p.empty()) {
 			MenuItem i = p.pop();
-			if(i != null) 
+			if(i != null)
 				plug.push(i);
 		}
 		return plug;
 	}
-	
+
 	private void addPlugins(Stack<MenuItem> plug)  {
 		while(!plug.empty()) {
 			popup.add(plug.pop());

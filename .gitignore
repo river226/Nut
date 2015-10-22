@@ -3,3 +3,4 @@ com/
 .project
 .classpath
 *.class
+*.jar

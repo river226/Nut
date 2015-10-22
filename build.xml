@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+   <project xmlns:ivy="antlib:org.apache.ivy.ant"  name="Nut" default="nutbuild">
+       <target name="nutbuild">
+          <javac srcdir="ain/tolva/nut"
+		 destdir="bin" excludes="ain/tolva/nut/test/*"/>
+          <copy todir="bin/ain/tolva/nut" >
+            <fileset dir="ain/tolva/nut/media" includes="**" overwrite="true"/>
+            <fileset dir="ain/tolva/nut/test" includes="*.jar" overwrite="true"/>
+          </copy>
+       </target>
+       <target name="resolve">
+          <ivy:resolve />
+          <ivy:retrieve />
+       </target>
+   </project>

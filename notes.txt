@@ -1,0 +1,2 @@
+-include file move option in ant build file
+-get junit dependency working in Ant

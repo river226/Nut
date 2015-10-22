@@ -25,21 +25,21 @@ import ain.tolva.nut.backend.exceptions.ErrorLog;
 public class PluginFile {
 	private static final String DEFAULT_FILE = "plist.xml";
 	private static final String THIS_CLASS = "PluginFile.java";
-	
+
 	public Document dom;
 	private ErrorLog erlog;
 
 	public PluginFile() {
 		erlog = ErrorLog.getInstance();
 	}
-	
+
 	public Stack<NeoPlugin> readInData() {
 		return readInData(DEFAULT_FILE);
 	}
-	
+
 	public Stack<NeoPlugin> readInData(String file) {
 		Stack<NeoPlugin> n = null;
-		
+
 		try {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
@@ -51,29 +51,33 @@ public class PluginFile {
 				NodeList nlCLA = ele.getElementsByTagName("pluginclass");
 				NodeList nlLOC = ele.getElementsByTagName("location");
 				n = new Stack<NeoPlugin>();
-				
+
 				for(int i = 0; i < nlLOC.getLength() && i < nlCLA.getLength(); i++) {
 					String cl = nlCLA.item(i).getFirstChild().getNodeValue().trim(); // class
 					String loc = nlLOC.item(i).getFirstChild().getNodeValue().trim(); // location
-					if(cl != null && loc != null)
-						n.push(new NeoPlugin(cl, loc));
+					if(cl != null && loc != null) {
+							NeoPlugin p = new NeoPlugin(cl, loc);
+
+							if (p.newClass() != null)	n.push(p); // allows us to catch any null errors.
+					}
 				}
 			}
 		}
-		} catch (SAXException 
-				| IOException 
-				| ParserConfigurationException e) {
+		} catch (SAXException
+				| IOException
+				| ParserConfigurationException
+				| Exception e) {
 			erlog.log(THIS_CLASS, e);
-			
+
 		}
-		
+
 		return n;
 	}
-	
+
 	public boolean writeDownData(Stack<NeoPlugin> n) {
 		return writeDownData(n, DEFAULT_FILE);
 	}
-	
+
 	public boolean writeDownData(Stack<NeoPlugin> n, String file) {
 		Element e = null;
 		boolean written = false;
@@ -105,7 +109,7 @@ public class PluginFile {
 	            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
 	            // send DOM to file
-	            tr.transform(new DOMSource(dom), 
+	            tr.transform(new DOMSource(dom),
 	                                 new StreamResult(new FileOutputStream(file)));
 	            written = true;
 
@@ -115,7 +119,7 @@ public class PluginFile {
 	    } catch (ParserConfigurationException pce) {
 	        erlog.log(THIS_CLASS, pce);
 	    }
-	    
+
 	    return written;
 	}
 }
