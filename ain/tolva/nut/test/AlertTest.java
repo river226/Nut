@@ -10,7 +10,7 @@ public class AlertTest implements NutPlugin {
 
   public AlertTest() {}
 
-  public abstract MenuItem getMenuItem () {
+  public MenuItem getMenuItem () {
         Menu alerttest = new Menu("Alert Test");
         MenuItem error = new MenuItem("Test Error");
         MenuItem issue = new MenuItem("Test Issue");
@@ -30,7 +30,7 @@ public class AlertTest implements NutPlugin {
   private ActionListener newActionListener(AlertType a) {
     return new ActionListener() {
   			public void actionPerformed(ActionEvent e) {
-  				Alerter al = new Alerter(a);
+  				Alerter alg = new Alerter(a);
           al.run();
   			}
     }
