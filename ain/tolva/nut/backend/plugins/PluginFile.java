@@ -65,8 +65,7 @@ public class PluginFile {
 		}
 		} catch (SAXException
 				| IOException
-				| ParserConfigurationException
-				| Exception e) {
+				| ParserConfigurationException e) {
 			erlog.log(THIS_CLASS, e);
 
 		}

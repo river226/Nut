@@ -2,6 +2,9 @@ import ain.tolva.nut.plugin.NutPlugin;
 import ain.tolva.nut.backend.alerts.*;
 import ain.tolva.nut.backend.exceptions.*;
 
+import java.awt.event.*;
+import java.awt.MenuItem;
+import java.awt.Menu;
 
 public class AlertTest implements NutPlugin {
 
@@ -27,13 +30,13 @@ public class AlertTest implements NutPlugin {
         return alerttest;
   }
 
-  private ActionListener newActionListener(AlertType a) {
+  private ActionListener newActionListener(final AlertType a) {
     return new ActionListener() {
   			public void actionPerformed(ActionEvent e) {
-  				Alerter alg = new Alerter(a);
+  				Alerter al = new Alerter(a, "test");
           al.run();
   			}
-    }
+    };
   }
 
 	public String getName() {
