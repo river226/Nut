@@ -1,3 +1,5 @@
+package ain.tolva.nut.test;
+
 import ain.tolva.nut.plugin.NutPlugin;
 import ain.tolva.nut.backend.alerts.*;
 import ain.tolva.nut.backend.exceptions.*;

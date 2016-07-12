@@ -20,10 +20,9 @@ import java.util.Stack;
 
 import javax.swing.ImageIcon;
 
-import ain.tolva.nut.backend.*;
-import ain.tolva.nut.backend.exceptions.ErrorLog;
-import ain.tolva.nut.backend.exceptions.NoTrayAccessException;
-import ain.tolva.nut.backend.plugins.AddPlugin;
+import ain.tolva.nut.backend.alerts.*;
+import ain.tolva.nut.backend.exceptions.*;
+import ain.tolva.nut.backend.plugins.*;
 import ain.tolva.nut.plugin.*;
 
 

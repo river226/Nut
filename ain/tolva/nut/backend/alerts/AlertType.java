@@ -13,8 +13,8 @@ public enum AlertType {
 				return JOptionPane.WARNING_MESSAGE;
 			case ATTENTION:
 				return JOptionPane.INFORMATION_MESSAGE;
-			//default:
-			//	return JOptionPane.PLAIN_MESSAGE;
 		}
+		// Default
+		return JOptionPane.PLAIN_MESSAGE;
 	}
 }
