@@ -4,3 +4,9 @@ com/
 .classpath
 *.class
 *.jar
+*.bak
+
+# IntelliJ
+.idea/
+Nut.iml
+out/

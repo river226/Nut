@@ -17,4 +17,9 @@ public enum AlertType {
 		// Default
 		return JOptionPane.PLAIN_MESSAGE;
 	}
+
+    @Override
+    public String toString() {
+        return "ATTENTION";
+    }
 }

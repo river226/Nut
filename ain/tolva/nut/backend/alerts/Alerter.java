@@ -7,7 +7,6 @@ public class Alerter implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private AlertType alert;
 	private String message;
-	private JOptionPane alertWindow;
 
 	public Alerter(AlertType a, String m) {
 		setAlert(a);
@@ -23,8 +22,8 @@ public class Alerter implements Runnable {
 	}
 
 	private void createAlert() {
-		alertWindow.setMessageType(alert.getType(alert));
-		alertWindow.createDialog(message);
+        JOptionPane.showMessageDialog(null, message, alert.toString(),
+                alert.getType(alert));
 	}
 
 	@Override

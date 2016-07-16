@@ -6,6 +6,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 import java.util.Map;
 
+/**
+ * Log and store errors thrown by this program.
+ */
 public class ErrorLog {
 	
 	private Map<Integer, String> errors  = new Hashtable<Integer, String>();;
