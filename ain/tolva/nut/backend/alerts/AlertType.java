@@ -20,6 +20,6 @@ public enum AlertType {
 
     @Override
     public String toString() {
-        return "ATTENTION";
+        return "Message";
     }
 }

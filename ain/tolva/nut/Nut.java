@@ -50,7 +50,7 @@ public class Nut implements Runnable {
 			throw new NoTrayAccessException("No System Support");
 		}
 
-		trayIcon = new TrayIcon(createImage("media/alert.gif", "tray icon"));
+		trayIcon = new TrayIcon(createImage("media/nut_tmp_logo.png", "tray icon"));
 	}
 
 	/**
@@ -71,6 +71,7 @@ public class Nut implements Runnable {
 	 */
 	public void launch() throws AWTException, InterruptedException {
 		addPlugins(getPlugins());
+        popup.addSeparator();
 		popup.add(buildAddPluginItem());
 		popup.add(buildExitItem());
 		trayIcon.setPopupMenu(popup);
@@ -136,6 +137,6 @@ public class Nut implements Runnable {
 		if (imageURL == null)
 			throw new FileNotFoundException();
 
-		return (new ImageIcon(imageURL, description)).getImage();
-	}
+		return (new ImageIcon(imageURL, description)).getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH);
+	} // TODO extract into class
 }
