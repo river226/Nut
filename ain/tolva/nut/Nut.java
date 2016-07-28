@@ -6,7 +6,6 @@ package ain.tolva.nut;
 
 // Java Imports
 import java.awt.AWTException;
-import java.awt.Image;
 import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -18,10 +17,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import javax.swing.ImageIcon;
-
 import ain.tolva.nut.backend.alerts.*;
 import ain.tolva.nut.backend.exceptions.*;
+import ain.tolva.nut.backend.media.TrayIconLocal;
 import ain.tolva.nut.backend.plugins.*;
 import ain.tolva.nut.plugin.*;
 
@@ -50,7 +48,7 @@ public class Nut implements Runnable {
 			throw new NoTrayAccessException("No System Support");
 		}
 
-		trayIcon = new TrayIcon(createImage("media/nut_tmp_logo.png", "tray icon"));
+		trayIcon = new TrayIcon(new TrayIconLocal("media/nut_tmp_logo.png", "Nut").getImage());
 	}
 
 	/**
@@ -124,19 +122,4 @@ public class Nut implements Runnable {
 			popup.add(plug.pop());
 		}
 	}
-
-	/**
-	 * Manages creating the Tray Icon
-	 * @param path - File path for the Tray Icon
-	 * @param description - Describes the icon being built
-	 * @return Image file of the Tray Icon
-	 */
-	private Image createImage(String path, String description) throws FileNotFoundException {
-		java.net.URL imageURL = Nut.class.getResource(path);
-
-		if (imageURL == null)
-			throw new FileNotFoundException();
-
-		return (new ImageIcon(imageURL, description)).getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH);
-	} // TODO extract into class
 }
