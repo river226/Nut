@@ -10,3 +10,6 @@ com/
 .idea/
 Nut.iml
 out/
+gradle/
+build/
+.gradle/
